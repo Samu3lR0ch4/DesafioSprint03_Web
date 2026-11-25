@@ -25,9 +25,13 @@ options.UseMySql(connectionString,ServerVersion.AutoDetect(connectionString)));
 builder.Services.AddScoped<ILancheRepository, LancheRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<UsuarioRepository>();
+
 
 // Services configuration
 builder.Services.AddScoped<ILancheService, LancheService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 // JWT configuration
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
@@ -53,10 +57,11 @@ builder.Services.AddSwaggerGen(c =>
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         In = ParameterLocation.Header,
-        Description = "Por favor insira um token válido",
+        Description = "Insira o seu Token JWT",
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
-        BearerFormat = "JWT"
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -77,6 +82,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+// Builder Compilador
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

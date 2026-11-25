@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using DesafioSprint03_Web.Repositories;
 using DesafioSprint03_Web.Services;
 using DesafioSprint03_Web.DTOs;
+using Microsoft.AspNetCore.Authorization;
 namespace DesafioSprint03_Web.Controllers
 {
     [Route("api/[controller]")]
@@ -19,6 +20,8 @@ namespace DesafioSprint03_Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get() => Ok(await _service.ListarTodos());
+
+        [Authorize]
 
         [HttpPost]
         public async Task<IActionResult> Post(LancheDTO lancheDTO)
