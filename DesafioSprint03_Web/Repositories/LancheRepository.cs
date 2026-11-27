@@ -21,6 +21,24 @@ namespace DesafioSprint03_Web.Repositories
             _context.Lanches.AddAsync(lanche);
             await _context.SaveChangesAsync();
         }
-    
+
+        public async Task<Lanche?> BuscarPorId(int id)
+        {
+            return await _context.Lanches.FindAsync(id);
+        }
+
+        public async Task Atulizar(Lanche lanche)
+        {
+            _context.Lanches.Update(lanche);
+            await _context.SaveChangesAsync();
+        }
+
+
+        public async Task Remover(Lanche lanche)
+        {
+            _context.Lanches.Remove(lanche);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }

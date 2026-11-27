@@ -22,7 +22,6 @@ namespace DesafioSprint03_Web.Controllers
         public async Task<IActionResult> Get() => Ok(await _service.ListarTodos());
 
         [Authorize]
-
         [HttpPost]
         public async Task<IActionResult> Post(LancheDTO lancheDTO)
         {
@@ -34,10 +33,40 @@ namespace DesafioSprint03_Web.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }         
+        }
+        [Authorize]
+        [HttpPut("{id}")]
+
+        public async Task<IActionResult> Put(int id, LancheDTO lancheDTO)
+        {
+            try
+            {
+                await _service.Atualizar(lancheDTO, id);
+                return Ok("Lanche Atualizado com Sucesso!");
             }
-          
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpDelete("{id}")]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _service.Remover(id);
+                return Ok("Lanche Removido com Sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
+
 }
 
 

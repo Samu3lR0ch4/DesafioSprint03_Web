@@ -12,15 +12,24 @@ namespace DesafioSprint03_Web.Repositories
     {
         _context = context;
     }
-    public async Task<IEnumerable<Usuario>> ListarTodos()
+    public async Task<Usuario?> BuscarPorNome(string Nome)
     {
-        return await _context.Usuarios.ToListAsync();
+        return await _context.Usuarios.FirstOrDefaultAsync(u=> u.Nome == Nome);
     }
     public async Task Adicionar(Usuario usuario)
     {
-        _context.Usuarios.AddAsync(usuario);
+        await _context.Usuarios.AddAsync(usuario);
         await _context.SaveChangesAsync();
     }
-}
+        public async Task<IEnumerable<Usuario>> ListarTodos()
+    => await _context.Usuarios.AsNoTracking().ToListAsync();
+
+        public async Task<Usuario?> BuscarPorEmail(string email)
+           => await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == email);
+
+
+
+
+    }
 
 }

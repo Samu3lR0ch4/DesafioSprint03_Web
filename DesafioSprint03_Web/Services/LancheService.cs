@@ -26,5 +26,27 @@ namespace DesafioSprint03_Web.Services
             await _lancheRepository.Adicionar(lanche);
         }
 
+        public async Task Atualizar(LancheDTO lancheDTO, int id)
+        {
+            var lanche = await _lancheRepository.BuscarPorId(id);
+            if (lanche == null)
+            {
+                throw new Exception("Lanche não encontrado");
+            }
+            lanche.nome = lancheDTO.nome;
+            lanche.descricao = lancheDTO.descricao;
+            lanche.preco = lancheDTO.preco;
+            await _lancheRepository.Atulizar(lanche);
+        }
+
+        public async Task Remover(int id)
+        {
+            var lanche = await _lancheRepository.BuscarPorId(id);
+            if (lanche == null)
+            {
+                throw new Exception("Lanche não encontrado");
+            }
+            await _lancheRepository.Remover(lanche);
+        }
     }
 }
